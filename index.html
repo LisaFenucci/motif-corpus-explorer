@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Motif Corpus Explorer</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Late medieval & early modern corpus search</p>
+        <h1>Motif Corpus Explorer</h1>
+        <p class="hero-text">
+          Search museum collections and cultural heritage databases for any motif,
+          filter by date range, exclude replicas, and display image records in a grid.
+        </p>
+      </div>
+      <div class="card callout">
+        <strong>How it works</strong>
+        <p>
+          This website sends your search to a backend endpoint, which expands motif terms,
+          queries live sources, filters duplicates and replicas, and returns image records.
+        </p>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="card sidebar">
+        <h2>Search settings</h2>
+        <p class="muted">Set the motif, date range, and sources.</p>
+
+        <div class="field">
+          <label for="motif">Motif</label>
+          <input id="motif" type="text" placeholder="e.g. wild man, griffin, mermaid" value="griffin" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fromYear">From year</label>
+            <input id="fromYear" type="number" value="1350" />
+          </div>
+          <div class="field">
+            <label for="toYear">To year</label>
+            <input id="toYear" type="number" value="1650" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="batchSize">Batch size</label>
+          <select id="batchSize">
+            <option value="12">12</option>
+            <option value="24" selected>24</option>
+            <option value="48">48</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Sources</label>
+          <div class="checks">
+            <label><input type="checkbox" value="Europeana" checked /> Europeana</label>
+            <label><input type="checkbox" value="Met Museum" checked /> Met Museum</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="checks">
+            <label><input id="excludeReplicas" type="checkbox" checked /> Exclude replicas</label>
+            <label><input id="includeEdgeCases" type="checkbox" checked /> Include edge cases</label>
+          </div>
+        </div>
+
+        <button id="searchBtn">Run search</button>
+      </aside>
+
+      <section class="content">
+        <div class="card panel">
+          <div class="panel-head">
+            <div>
+              <h2>Generated search protocol</h2>
+              <p class="muted">The backend can use this as the AI instruction block.</p>
+            </div>
+          </div>
+          <textarea id="promptBox" readonly></textarea>
+        </div>
+
+        <div class="card panel">
+          <div class="panel-head">
+            <div>
+              <h2>Image results</h2>
+              <p id="status" class="muted">Ready.</p>
+            </div>
+            <div id="stats" class="stats"></div>
+          </div>
+          <div id="results"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
